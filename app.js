@@ -7,7 +7,7 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 
-const { onConnection } = require("./socket");
+const { onConnection, englishVocabularyQuestion } = require("./socket");
 const io = require('socket.io')(server);
 const session = require('express-session');
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 
 io.on("connection", onConnection(io));
+setInterval(englishVocabularyQuestion(io) , 1000);
 
 server.listen(process.env.PORT || '3000');
 

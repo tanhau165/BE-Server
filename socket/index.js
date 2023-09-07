@@ -1,24 +1,27 @@
 const { userJoinEnglishVocabulary } = require("./user-socket");
-const { englishVocabularyProcessor } = require("./examination-socket");
+const { englishVocabularyAnswerProcessor, englishVocabularyQuestionProcessor} = require("./examination-socket");
 const db = require("../models");
 
 const configureSockets = (io, socket) => {
     return {
         userJoinEnglishVocabularyHandler: userJoinEnglishVocabulary(io, socket),
-        englishVocabularyProcessorHandler: englishVocabularyProcessor(io, socket),
+        englishVocabularyAnswerProcessorHandler: englishVocabularyAnswerProcessor(io, socket)
     };
 };
 
-const onConnection = (io) => async (socket) => {
+const onConnection = (io) => (socket) => {
 
     const {
         userJoinEnglishVocabularyHandler,
-        englishVocabularyProcessorHandler
+        englishVocabularyAnswerProcessorHandler,
     } = configureSockets(io, socket);
 
-    setInterval(englishVocabularyProcessorHandler, 1000);
-
     socket.on("user-join-english-vocabulary", userJoinEnglishVocabularyHandler);
+    socket.on("english-vocabulary-answer", englishVocabularyAnswerProcessorHandler);
 };
 
-module.exports = { onConnection };
+const englishVocabularyQuestion = (io) => (socket) => {
+   englishVocabularyQuestionProcessor(io, socket);
+};
+
+module.exports = { onConnection, englishVocabularyQuestion };
