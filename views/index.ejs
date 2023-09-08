@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="/socket.io/socket.io.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'/>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/socket.io.js"></script>
     <script src="/javascripts/main.js"></script>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <button onclick="userJoinEnglishVocabulary()">Go to vocabulary eng</button>
-  </body>
+</head>
+<body>
+
+<div class="container">
+
+  <div id="select-challenge">
+    <button onclick="userJoinEnglishVocabulary()">English vocabulary</button>
+  </div>
+    <div id="challenge-box">
+      <div class="row">
+        <div class="col-sm-6">
+            <p id="textQuestion"></p>
+        </div>
+        <div class="col-sm-6">
+
+        </div>
+      </div>
+    </div>
+
+</div>
+</body>
 </html>
